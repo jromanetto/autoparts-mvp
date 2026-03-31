@@ -13,6 +13,18 @@ export default [
         ecmaVersion: "latest",
         sourceType: "module",
       },
+      globals: {
+        process: "readonly",
+        console: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        Buffer: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
+        URL: "readonly",
+      },
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
