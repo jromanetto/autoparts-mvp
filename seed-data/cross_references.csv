@@ -1,0 +1,84 @@
+part_oem_number,part_manufacturer,cross_ref_oem_number,cross_ref_manufacturer,cross_ref_type,notes
+F026407157,Bosch,W712/94,Mann-Filter,equivalent,Same application VAG EA211 engines
+F026407157,Bosch,OC456,Mahle,equivalent,Compatible oil filter
+F026407157,Bosch,COF100540E,Champion,equivalent,Alternative oil filter
+W712/94,Mann-Filter,OC456,Mahle,equivalent,Cross-compatible oil filter
+W712/94,Mann-Filter,PURFL-AH384,Purflux,equivalent,Alternative source filter
+W712/94,Mann-Filter,UFI-2314900,UFI,equivalent,Same filtration spec
+W712/94,Mann-Filter,ACDelco-PF48E,ACDelco,compatible,Aftermarket alternative
+OC456,Mahle,V10-2620,Hengst,equivalent,Same filter element
+F026400497,Bosch,C27006,Mann-Filter,equivalent,Same air filter application
+F026400497,Bosch,LX3778,Mahle,compatible,Similar dimensions different application
+F026400497,Bosch,Champion-AU630,Champion,equivalent,Direct replacement air filter
+F026400497,Bosch,Sogefi-FA6116,Sogefi,equivalent,OEM supplier cross-reference
+C27006,Mann-Filter,E1024L,Hengst,equivalent,Same air filter spec
+F026402848,Bosch,WK820/18,Mann-Filter,equivalent,Same diesel fuel filter
+F026402848,Bosch,KL756,Mahle,compatible,Compatible fuel filter
+F026402848,Bosch,28343734,Delphi,equivalent,Alternative diesel filter
+1987432598,Bosch,CUK26009,Mann-Filter,equivalent,Same cabin filter MQB platform
+1987432598,Bosch,LA795,Mahle,equivalent,Activated carbon cabin filter
+0242236571,Bosch,7977,NGK,equivalent,Same heat range spark plug
+0242236571,Bosch,AP809,Champion,equivalent,Iridium plug cross-reference
+7977,NGK,6458,NGK,compatible,Different heat range same thread
+0250403009,Bosch,91215,NGK,equivalent,Same glow plug application
+0250403009,Bosch,BERU-GE100,Beru,equivalent,Ceramic glow plug equivalent
+0221504800,Bosch,48032,NGK,equivalent,Same ignition coil application
+0221504800,Bosch,GN10233,Delphi,equivalent,Alternative ignition coil
+0986494524,Bosch,P06074,Brembo,equivalent,Same vehicle application front pads
+0986494524,Bosch,FDB4045,Ferodo,equivalent,Front pad cross-reference
+0986494524,Bosch,GDB2064,TRW,equivalent,Front brake pad alternative
+0986494524,Bosch,2360301,Textar,compatible,Similar spec front pads
+0986494524,Bosch,MBP1003,Mintex,equivalent,Standard front pad replacement
+0986494524,Bosch,BOS-DP1998,Pagid,equivalent,OE quality front pads
+0986494524,Bosch,DP2201/2,EBC Brakes,compatible,Performance upgrade option
+0986494524,Bosch,Bendix-DB2292,Bendix,equivalent,Aftermarket front pads
+0986494525,Bosch,P06075,Brembo,equivalent,Same application rear pads
+0986494525,Bosch,FDB4396,Ferodo,equivalent,Rear pad cross-reference
+0986494525,Bosch,2500601,Textar,compatible,Similar spec rear pads
+0986479C26,Bosch,09C11211,Brembo,compatible,Different diameter front disc
+0986479C26,Bosch,24.0125-0197.1,ATE,equivalent,Same spec front disc
+0986479C26,Bosch,MDC2597,Mintex,equivalent,312mm vented front disc
+0986479C26,Bosch,DF6189S,TRW,compatible,340mm version available
+0986479C26,Bosch,03-0941-GZ,Zimmermann,compatible,Sport drilled version
+0986479D52,Bosch,08A53711,Brembo,compatible,Different diameter rear disc
+0986479D52,Bosch,24.0112-0189.1,ATE,equivalent,Same spec rear disc
+0986479D52,Bosch,03-0942-GZ,Zimmermann,compatible,Sport drilled rear version
+334834,KYB,D7184,Monroe,equivalent,Same application front strut
+334834,KYB,24-264662,Bilstein,equivalent,B4 equivalent front damper
+334834,KYB,171356,Sachs,compatible,Different valve tuning
+334834,KYB,116090062,Meyle,equivalent,Front shock cross-reference
+344459,KYB,G2245,Monroe,compatible,Different application rear damper
+344459,KYB,19-264681,Bilstein,equivalent,B4 equivalent rear damper
+344459,KYB,315423,Sachs,compatible,Rear damper alternative
+JTC1404,TRW,28233,Febi Bilstein,compatible,Control arm bush only
+JTC1404,TRW,HD103670310,Meyle,equivalent,HD control arm complete
+JBJ775,TRW,31277,Febi Bilstein,equivalent,Same ball joint spec
+JBJ775,TRW,HD100407M,Meyle,equivalent,HD ball joint upgrade
+JAR1050,TRW,37583,Febi Bilstein,compatible,Inner tie rod version
+JAR1050,TRW,HD116050006,Meyle,equivalent,HD outer tie rod
+VKBA6556,SKF,NTN-AU0933,NTN,equivalent,Front hub bearing unit
+VKBA6556,SKF,FAG-713610950,FAG,equivalent,Same bearing application
+VKBA3660,SKF,KOYO-DAC4280,Koyo,equivalent,Rear wheel bearing
+585317,Valeo,624335900,LuK,equivalent,Same clutch application
+585317,Valeo,6256000048,Sachs,equivalent,Clutch kit cross-reference
+836037,Valeo,415066710,LuK,equivalent,DMF cross-reference
+836037,Valeo,2294001394,Sachs,equivalent,Dual mass flywheel
+K015603XS,Gates,DAYCO-KTB788,Dayco,equivalent,Timing belt kit with water pump
+K015603XS,Gates,900376,Continental,compatible,Belt kit without water pump
+900376,Continental,INA-F-239187,INA,compatible,Tensioner only cross-reference
+509329,NRF,86055,Nissens,equivalent,Same radiator application
+509329,NRF,245215,Valeo,equivalent,Engine radiator cross-ref
+35305,NRF,72079,Nissens,equivalent,Same heater core application
+0986022800,Bosch,251489,Valeo,equivalent,Starter motor cross-reference
+0986022800,Bosch,063377747010,Magneti Marelli,compatible,Lower power alternative
+0986049860,Bosch,439730,Valeo,equivalent,Alternator cross-reference
+0986049860,Bosch,MCC353,Magneti Marelli,compatible,140A vs 150A output
+245215,Valeo,509329,NRF,equivalent,Radiator cross-reference
+245215,Valeo,86055,Nissens,equivalent,Alternative radiator source
+64118,Osram,12972XV,Philips,equivalent,Same H7 55W spec
+64118,Osram,12258WVUSM,Philips,compatible,H4 vs H7 different base
+539.00,Elring,81-33907-00,Victor Reinz,equivalent,Same head gasket application
+539.00,Elring,725.890,Elring,compatible,Valve cover gasket same engine
+81-33907-00,Victor Reinz,81-10548-00,Victor Reinz,compatible,Oil sump gasket same engine family
+K100627,Gates,Aisin-WPT-190,Aisin,equivalent,Same water pump application
+K100627,Gates,7.02256.15.0,Pierburg,compatible,Electric vs mechanical pump

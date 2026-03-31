@@ -1,0 +1,140 @@
+oem_number,manufacturer_name,category_slug,name,description,weight_grams,status
+0986494524,Bosch,brake-pads,Bosch Front Brake Pad Set,Low-dust ceramic front brake pads for European vehicles,450,active
+0986494525,Bosch,brake-pads,Bosch Rear Brake Pad Set,Low-dust ceramic rear brake pads,380,active
+0986479C26,Bosch,brake-discs,Bosch Vented Front Brake Disc 312mm,Vented front brake disc 312x25mm,7800,active
+0986479D52,Bosch,brake-discs,Bosch Solid Rear Brake Disc 282mm,Solid rear brake disc 282x12mm,4200,active
+F026407157,Bosch,oil-filters,Bosch Oil Filter,Spin-on engine oil filter,280,active
+F026400497,Bosch,air-filters,Bosch Air Filter Element,Panel air filter for turbocharged engines,320,active
+F026402848,Bosch,fuel-filters,Bosch Fuel Filter,Inline fuel filter for diesel engines,190,active
+1987432598,Bosch,cabin-filters,Bosch Cabin Filter with Activated Carbon,Activated carbon pollen filter,150,active
+0242236571,Bosch,spark-plugs,Bosch Iridium Spark Plug FR7NI332S,Long-life iridium spark plug,45,active
+0250403009,Bosch,glow-plugs,Bosch Duraterm Glow Plug,Quick-start ceramic glow plug for diesel,52,active
+0986022800,Bosch,starters,Bosch Starter Motor 1.4kW,Gear reduction starter motor,4200,active
+0986049860,Bosch,alternators,Bosch Alternator 150A,14V 150A alternator with voltage regulator,5800,active
+0221504800,Bosch,ignition-coils,Bosch Ignition Coil Pack,Pencil-type direct ignition coil,340,active
+0261230482,Bosch,sensors,Bosch MAP Sensor,Manifold absolute pressure sensor,85,active
+0281006405,Bosch,lambda-sensors,Bosch Lambda Sensor Wideband,Wideband oxygen sensor pre-cat,120,active
+W712/94,Mann-Filter,oil-filters,Mann Oil Filter W712/94,Spin-on oil filter for VAG group,265,active
+C27006,Mann-Filter,air-filters,Mann Air Filter C27006,Flat panel air filter element,290,active
+WK820/18,Mann-Filter,fuel-filters,Mann Fuel Filter WK820/18,Inline diesel fuel filter with water separator,210,active
+CUK26009,Mann-Filter,cabin-filters,Mann Cabin Filter CUK26009,Activated carbon cabin air filter,140,active
+HU7020z,Mann-Filter,oil-filters,Mann Oil Filter Element HU7020z,Paper element oil filter insert,195,active
+OC456,Mahle,oil-filters,Mahle Oil Filter OC456,Spin-on engine oil filter,275,active
+LX3778,Mahle,air-filters,Mahle Air Filter LX3778,Engine air intake filter element,310,active
+KL756,Mahle,fuel-filters,Mahle Fuel Filter KL756,Inline fuel filter for petrol engines,165,active
+LA795,Mahle,cabin-filters,Mahle Cabin Filter LA795,Standard cabin pollen filter,125,active
+OX404D,Mahle,oil-filters,Mahle Oil Filter Element OX404D,Cartridge oil filter with drain plug,220,active
+585317,Valeo,clutch-kits,Valeo 3-Piece Clutch Kit,Complete clutch kit with bearing,4800,active
+836037,Valeo,flywheels,Valeo Dual Mass Flywheel,Replacement dual mass flywheel,11500,active
+251489,Valeo,starters,Valeo Starter Motor 1.2kW,Compact starter for small displacement engines,3800,active
+439730,Valeo,alternators,Valeo Alternator 120A,Compact alternator 14V 120A,5200,active
+578524,Valeo,wipers,Valeo Silencio X.TRM Flat Blade Set 600/450mm,Aerodynamic flat wiper blade pair,320,active
+245215,Valeo,radiators,Valeo Engine Radiator,Aluminium brazed radiator with plastic tanks,4600,active
+813140,Valeo,thermostats,Valeo Thermostat Housing Assembly,Thermostat with integrated housing 87C,380,active
+043731,Valeo,headlights,Valeo Xenon Headlight Left,Xenon HID headlamp assembly LHD,3200,active
+P06074,Brembo,brake-pads,Brembo Front Brake Pad Set P06074,Premium ceramic front pads low dust,420,active
+P06075,Brembo,brake-pads,Brembo Rear Brake Pad Set P06075,Premium ceramic rear pads,350,active
+09C11211,Brembo,brake-discs,Brembo UV-Coated Front Brake Disc 330mm,Ventilated front disc with UV anti-corrosion,8500,active
+08A53711,Brembo,brake-discs,Brembo UV-Coated Rear Brake Disc 300mm,Solid rear disc with UV coating,5100,active
+F16014,Brembo,brake-calipers,Brembo Front Brake Caliper,Rebuilt front brake caliper exchange unit,3200,active
+7977,NGK,spark-plugs,NGK Iridium IX BKR6EIX,Performance iridium spark plug,42,active
+6458,NGK,spark-plugs,NGK Laser Platinum PLKR7A,Double platinum long-life plug,44,active
+48032,NGK,ignition-coils,NGK Ignition Coil U5055,Rail-type direct ignition coil,380,active
+91215,NGK,glow-plugs,NGK Glow Plug Y-547AS,Steel sheathed quick-start glow plug,48,active
+900376,Continental,timing-belts,Continental Timing Belt Kit CT1168K1,Complete timing belt kit with tensioner and rollers,1200,active
+6PK2080,Continental,timing-belts,Continental Serpentine Belt 6PK2080,Poly-V auxiliary drive belt,180,active
+A03720PMSFZZ1,Continental,sensors,Continental ABS Speed Sensor,Wheel speed sensor for ABS system,95,active
+334834,KYB,shock-absorbers,KYB Excel-G Front Shock Absorber,Gas-charged twin-tube front strut,2800,active
+344459,KYB,shock-absorbers,KYB Excel-G Rear Shock Absorber,Gas-charged twin-tube rear damper,1900,active
+RH2616,KYB,springs,KYB Front Coil Spring,Replacement front suspension spring,3200,active
+D7184,Monroe,shock-absorbers,Monroe OESpectrum Front Strut,OE-replacement front strut assembly,3100,active
+G2245,Monroe,shock-absorbers,Monroe Adventure Rear Damper,Heavy-duty rear shock absorber,2200,active
+SP3690,Monroe,springs,Monroe Rear Coil Spring,Standard replacement rear spring,2800,active
+24-264662,Bilstein,shock-absorbers,Bilstein B4 Front Damper,OE replacement gas-pressure front damper,2900,active
+19-264681,Bilstein,shock-absorbers,Bilstein B4 Rear Damper,OE replacement gas-pressure rear damper,2000,active
+JTC1404,TRW,control-arms,TRW Front Lower Control Arm Left,Forged aluminium front lower wishbone left,2400,active
+JTC1405,TRW,control-arms,TRW Front Lower Control Arm Right,Forged aluminium front lower wishbone right,2400,active
+JBJ775,TRW,ball-joints,TRW Front Ball Joint,Sealed front suspension ball joint,450,active
+JAR1050,TRW,tie-rod-ends,TRW Outer Tie Rod End,Steering tie rod outer end with lock nut,320,active
+PHA476,TRW,brake-lines,TRW Front Brake Hose,Flexible front brake hose,180,active
+GDB2064,TRW,brake-pads,TRW Front Brake Pad Set,Cotec compound front brake pads,430,active
+DF6189S,TRW,brake-discs,TRW Front Brake Disc Vented 340mm,High-carbon vented front disc,9200,active
+624335900,LuK,clutch-kits,LuK RepSet Clutch Kit,3-piece clutch kit with release bearing,4500,active
+415066710,LuK,flywheels,LuK Dual Mass Flywheel,OE-specification dual mass flywheel,12000,active
+K015603XS,Gates,timing-belts,Gates Timing Belt Kit with Water Pump,Complete timing belt kit with water pump and tensioners,2100,active
+6PK1570,Gates,timing-belts,Gates Micro-V Belt 6PK1570,Multi-ribbed auxiliary drive belt,155,active
+VKBA6556,SKF,wheel-bearings,SKF Front Wheel Bearing Kit,Hub bearing kit with ABS sensor ring,890,active
+VKBA3660,SKF,wheel-bearings,SKF Rear Wheel Bearing Kit,Rear hub bearing kit,720,active
+VKJC4517,SKF,cv-joints,SKF Front CV Joint Kit Left,Drive shaft CV joint boot kit,680,active
+28233,Febi Bilstein,control-arms,Febi Front Control Arm Bush,Front lower wishbone rear mounting bush,180,active
+31277,Febi Bilstein,ball-joints,Febi Front Ball Joint,Front suspension ball joint with bolts,420,active
+37583,Febi Bilstein,tie-rod-ends,Febi Inner Tie Rod,Steering inner tie rod axle joint,290,active
+HD103670310,Meyle,control-arms,Meyle HD Front Control Arm Kit,Heavy-duty front lower control arm complete,2600,active
+HD116050006,Meyle,tie-rod-ends,Meyle HD Outer Tie Rod End,Reinforced steering tie rod outer end,340,active
+HD100407M,Meyle,ball-joints,Meyle HD Front Ball Joint,Heavy-duty sealed ball joint,480,active
+116090062,Meyle,shock-absorbers,Meyle Front Shock Absorber,Gas-charged front suspension strut,2700,active
+FDB4045,Ferodo,brake-pads,Ferodo Premier Front Brake Pads,OE-formula friction front pads,440,active
+FDB4396,Ferodo,brake-pads,Ferodo Premier Rear Brake Pads,OE-formula friction rear pads,360,active
+2360301,Textar,brake-pads,Textar epad Front Brake Pad Set,Low-dust front brake pad set,435,active
+2500601,Textar,brake-pads,Textar epad Rear Brake Pad Set,Low-dust rear brake pad set,355,active
+24.0125-0197.1,ATE,brake-discs,ATE PowerDisc Front Brake Disc,Sport ventilated front disc with slots,8000,active
+24.0112-0189.1,ATE,brake-discs,ATE PowerDisc Rear Brake Disc,Sport solid rear disc,4500,active
+03.7855-0309.4,ATE,brake-fluid,ATE Typ 200 DOT4 Brake Fluid 1L,High performance DOT4 brake fluid,1050,active
+171356,Sachs,shock-absorbers,Sachs Super Touring Front Strut,Comfort-tuned gas front strut,3000,active
+315423,Sachs,shock-absorbers,Sachs Super Touring Rear Damper,Comfort-tuned gas rear damper,2100,active
+2294001394,Sachs,flywheels,Sachs Dual Mass Flywheel,Performance dual mass flywheel,11800,active
+6256000048,Sachs,clutch-kits,Sachs Clutch Kit,OE-spec 3-piece clutch kit,4600,active
+509116,Valeo,cooling-fans,Valeo Engine Cooling Fan Motor,Brushless radiator fan motor,1800,active
+95517,Delphi,sensors,Delphi Crankshaft Position Sensor,Engine crank angle sensor,110,active
+28343734,Delphi,fuel-filters,Delphi Diesel Fuel Filter,In-line diesel fuel filter element,200,active
+GN10233,Delphi,ignition-coils,Delphi Ignition Coil,Pencil-type individual ignition coil,330,active
+AP8003,Delphi,sensors,Delphi Accelerator Pedal Position Sensor,Electronic throttle pedal sensor,520,active
+509329,NRF,radiators,NRF Engine Radiator,Brazed aluminium OE replacement radiator,4800,active
+36052,NRF,cooling-fans,NRF Radiator Fan Assembly,Complete electric fan assembly with shroud,3500,active
+35305,NRF,heater-cores,NRF Heater Core,HVAC heater matrix,950,active
+86055,Nissens,radiators,Nissens Engine Radiator,Aluminium core with plastic side tanks,4500,active
+87690,Nissens,thermostats,Nissens Thermostat with Housing,Integrated thermostat housing 89C,360,active
+72079,Nissens,heater-cores,Nissens Heater Core,Cabin heating heat exchanger,880,active
+247900,Hella,headlights,Hella Bi-Xenon Headlight Right,Bi-Xenon adaptive headlamp RHD right,3400,active
+2SK009467021,Hella,tail-lights,Hella LED Rear Light Right,LED combination tail lamp right,820,active
+8FK351114651,Hella,sensors,Hella Coolant Temperature Sensor,Engine coolant temp sender for ECU,65,active
+6PR014088,Pierburg,sensors,Pierburg Intake Manifold Pressure Sensor,MAP sensor for engine management,80,active
+7.02256.15.0,Pierburg,water-pumps,Pierburg Electric Water Pump,Auxiliary electric coolant pump,650,active
+V10-2620,Hengst,oil-filters,Hengst Oil Filter Element,Paper element oil filter with seal kit,205,active
+E1024L,Hengst,air-filters,Hengst Air Filter E1024L,Engine air filter panel element,305,active
+539.00,Elring,gaskets,Elring Cylinder Head Gasket Set,Multi-layer steel head gasket set,680,active
+725.890,Elring,gaskets,Elring Valve Cover Gasket,Silicone rubber valve cover seal,120,active
+81-33907-00,Victor Reinz,gaskets,Victor Reinz Cylinder Head Gasket,MLS cylinder head gasket,280,active
+81-10548-00,Victor Reinz,gaskets,Victor Reinz Oil Sump Gasket,Cork-rubber oil pan gasket,95,active
+K100627,Gates,water-pumps,Gates Water Pump,Engine coolant pump with gasket,1100,active
+64118,Osram,bulbs,Osram Night Breaker H7 Pair,High-performance halogen headlight bulbs,30,active
+12972XV,Philips,bulbs,Philips X-tremeVision H7 Pair,Maximum brightness halogen bulbs,30,active
+12258WVUSM,Philips,bulbs,Philips WhiteVision Ultra H4,Ultra-white halogen headlight bulb pair,32,active
+AP809,Champion,spark-plugs,Champion Iridium Spark Plug OE231,Direct OE replacement iridium plug,43,active
+AU630,Champion,air-filters,Champion Air Filter,Panel air filter element,285,active
+COF100540E,Champion,oil-filters,Champion Oil Filter,Spin-on oil filter,260,active
+MBP1003,Mintex,brake-pads,Mintex Front Brake Pad Set,Standard replacement front pads,410,active
+MDC2597,Mintex,brake-discs,Mintex Front Brake Disc 312mm,Standard vented front disc,7600,active
+BOS-DP1998,Pagid,brake-pads,Pagid Front Brake Pad Set,OE-quality front brake pads,425,active
+03-0941-GZ,Zimmermann,brake-discs,Zimmermann Sport Coat Z Front Disc 340mm,Sport cross-drilled front disc with coat Z,9100,active
+03-0942-GZ,Zimmermann,brake-discs,Zimmermann Sport Coat Z Rear Disc 310mm,Sport cross-drilled rear disc with coat Z,5300,active
+DP2201/2,EBC Brakes,brake-pads,EBC Greenstuff 2000 Front Pads,Performance street front pads reduced dust,430,active
+MCC353,Magneti Marelli,alternators,Magneti Marelli Alternator 140A,Remanufactured alternator 14V 140A,5500,active
+063377747010,Magneti Marelli,starters,Magneti Marelli Starter Motor,Compact starter motor 1.1kW,3600,active
+MCA7798,Magneti Marelli,catalytic-converters,Magneti Marelli Catalytic Converter,Type-approved catalytic converter,5200,active
+CT1139,Continental,timing-chains,Continental Timing Chain Kit,Complete timing chain kit with guides and tensioner,1800,active
+12754,Corteco,gaskets,Corteco Crankshaft Oil Seal Front,FPM crankshaft front oil seal,35,active
+19035680,Corteco,gaskets,Corteco Crankshaft Oil Seal Rear,FPM crankshaft rear main seal,45,active
+NTN-AU0933,NTN,wheel-bearings,NTN Front Hub Bearing Unit,Integrated front hub bearing assembly,1100,active
+KOYO-DAC4280,Koyo,wheel-bearings,Koyo Rear Wheel Bearing,Double row angular contact bearing,680,active
+INA-F-239187,INA,timing-belts,INA Timing Belt Tensioner,Automatic hydraulic belt tensioner,450,active
+INA-F-571752,INA,timing-chains,INA Timing Chain Tensioner,Hydraulic timing chain tensioner,380,active
+FAG-713610950,FAG,wheel-bearings,FAG Front Wheel Bearing Kit,Tapered roller bearing set,850,active
+PURFL-AH384,Purflux,oil-filters,Purflux Oil Filter AH384,Cartridge oil filter element,190,active
+UFI-2314900,UFI,oil-filters,UFI Oil Filter Element,Engine oil filter insert,200,active
+BERU-GE100,Beru,glow-plugs,Beru Instant Start Glow Plug GE100,Ceramic instant-start glow plug,50,active
+DAYCO-KTB788,Dayco,timing-belts,Dayco Timing Belt Kit KTB788,Complete timing belt with water pump kit,2000,active
+ACDelco-PF48E,ACDelco,oil-filters,ACDelco Professional Oil Filter,Spin-on engine oil filter,270,active
+Aisin-WPT-190,Aisin,water-pumps,Aisin Water Pump WPT-190,Engine coolant pump with gasket,1050,active
+Bendix-DB2292,Bendix,brake-pads,Bendix General CT Front Brake Pads,Ceramic technology front pads,415,active
+Sogefi-FA6116,Sogefi,air-filters,Sogefi Pro Air Filter,Panel air filter element,295,active

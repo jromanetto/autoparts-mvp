@@ -1,0 +1,136 @@
+part_oem_number,part_manufacturer,vehicle_make,vehicle_model,vehicle_year_start,engine_code,fitment_notes,quantity_needed,position
+0986494524,Bosch,Volkswagen,Golf VII,2012,CJSA,Direct OE replacement front pads,1,front
+0986494524,Bosch,Volkswagen,Golf VII,2012,CRBC,Direct OE replacement front pads,1,front
+0986494524,Bosch,Volkswagen,Golf VIII,2019,DPCA,OE replacement front pads,1,front
+0986494524,Bosch,Audi,A3 8V,2012,CJSA,Shared platform with Golf VII,1,front
+0986494524,Bosch,Seat,Leon III,2012,CJSA,MQB platform shared fit,1,front
+0986494524,Bosch,Skoda,Octavia III,2012,CJSA,MQB platform shared fit,1,front
+0986494525,Bosch,Volkswagen,Golf VII,2012,CJSA,Direct OE replacement rear pads,1,rear
+0986494525,Bosch,Volkswagen,Golf VII,2012,CRBC,Direct OE replacement rear pads,1,rear
+0986494525,Bosch,Audi,A3 8V,2012,CJSA,Shared platform rear pads,1,rear
+0986494525,Bosch,Seat,Leon III,2012,CJSA,MQB platform rear pads,1,rear
+0986479C26,Bosch,Volkswagen,Golf VII,2012,CJSA,312mm vented front disc,2,front
+0986479C26,Bosch,Audi,A3 8V,2012,CJSA,312mm vented front disc,2,front
+0986479D52,Bosch,Volkswagen,Golf VII,2012,CJSA,282mm solid rear disc,2,rear
+0986479D52,Bosch,Audi,A3 8V,2012,CJSA,282mm solid rear disc,2,rear
+F026407157,Bosch,Volkswagen,Golf VII,2012,CJSA,OE replacement oil filter,1,
+F026407157,Bosch,Volkswagen,Golf VIII,2019,DPCA,Compatible oil filter,1,
+F026407157,Bosch,Audi,A3 8V,2012,CJSA,Shared EA211 engine oil filter,1,
+F026407157,Bosch,Seat,Leon III,2012,CJSA,EA211 platform filter,1,
+F026400497,Bosch,Volkswagen,Golf VII,2012,CJSA,Panel air filter element,1,
+F026400497,Bosch,Volkswagen,Golf VII,2012,CRBC,Panel air filter element,1,
+F026400497,Bosch,Audi,A3 8V,2012,CJSA,MQB platform air filter,1,
+F026402848,Bosch,Volkswagen,Golf VII,2012,CRBC,Diesel fuel filter,1,
+F026402848,Bosch,Volkswagen,Passat B8,2014,DCXA,Diesel fuel filter,1,
+F026402848,Bosch,Audi,A4 B9,2015,DETA,EA288 diesel fuel filter,1,
+1987432598,Bosch,Volkswagen,Golf VII,2012,CJSA,Activated carbon cabin filter,1,
+1987432598,Bosch,Volkswagen,Golf VIII,2019,DPCA,Cabin filter with activated carbon,1,
+1987432598,Bosch,Audi,A3 8V,2012,CJSA,Cabin filter MQB platform,1,
+0242236571,Bosch,Volkswagen,Golf VII,2012,CJSA,Iridium spark plug set of 4,4,
+0242236571,Bosch,Audi,A3 8V,2012,CJSA,Iridium spark plug for EA211,4,
+0242236571,Bosch,Seat,Leon III,2012,CJSA,EA211 spark plug,4,
+0250403009,Bosch,Volkswagen,Golf VII,2012,CRBC,Diesel glow plug,4,
+0250403009,Bosch,Volkswagen,Passat B8,2014,DCXA,TDI glow plug,4,
+0221504800,Bosch,Volkswagen,Golf VII,2012,CJSA,Individual ignition coil,4,
+0221504800,Bosch,Audi,A3 8V,2012,CJSA,EA211 ignition coil,4,
+P06074,Brembo,BMW,3 Series F30,2011,B48B20,Premium front brake pads,1,front
+P06074,Brembo,BMW,3 Series G20,2018,B48B20O1,Premium front brake pads,1,front
+P06074,Brembo,BMW,X3 G01,2017,B48B20,Front brake pads,1,front
+P06075,Brembo,BMW,3 Series F30,2011,B48B20,Premium rear brake pads,1,rear
+P06075,Brembo,BMW,3 Series G20,2018,B48B20O1,Premium rear pads,1,rear
+09C11211,Brembo,BMW,3 Series F30,2011,B48B20,330mm UV coated front disc,2,front
+09C11211,Brembo,BMW,X3 G01,2017,B48B20,330mm front disc,2,front
+08A53711,Brembo,BMW,3 Series F30,2011,B48B20,300mm UV coated rear disc,2,rear
+W712/94,Mann-Filter,Volkswagen,Golf VII,2012,CJSA,Spin-on oil filter,1,
+W712/94,Mann-Filter,Volkswagen,Golf VIII,2019,DPCA,Oil filter,1,
+W712/94,Mann-Filter,Seat,Leon III,2012,CJSA,EA211 oil filter,1,
+W712/94,Mann-Filter,Skoda,Octavia III,2012,CJSA,Oil filter,1,
+C27006,Mann-Filter,Volkswagen,Golf VII,2012,CJSA,Panel air filter,1,
+C27006,Mann-Filter,Audi,A3 8V,2012,CJSA,MQB air filter element,1,
+WK820/18,Mann-Filter,Mercedes-Benz,C-Class W205,2014,OM654,Diesel fuel filter,1,
+WK820/18,Mann-Filter,Mercedes-Benz,E-Class W213,2016,OM654,Diesel fuel filter,1,
+CUK26009,Mann-Filter,Volkswagen,Golf VII,2012,CJSA,Activated carbon cabin filter,1,
+CUK26009,Mann-Filter,Audi,A3 8V,2012,CJSA,MQB cabin filter,1,
+OC456,Mahle,BMW,3 Series F30,2011,B48B20,BMW oil filter,1,
+OC456,Mahle,BMW,5 Series G30,2016,B58B30,Oil filter,1,
+OC456,Mahle,BMW,X3 G01,2017,B48B20,Oil filter,1,
+LX3778,Mahle,BMW,3 Series F30,2011,B48B20,Air filter element,1,
+LX3778,Mahle,BMW,3 Series G20,2018,B48B20O1,Engine air filter,1,
+585317,Valeo,Renault,Megane IV,2015,M5Mb,Complete clutch kit,1,
+585317,Valeo,Renault,Clio V,2019,H5Ht,Clutch kit 1.3 TCe,1,
+585317,Valeo,Renault,Captur II,2019,H5Ht,Clutch replacement kit,1,
+578524,Valeo,Peugeot,308 II,2013,EB2DTS,600/450mm flat blade set,1,
+578524,Valeo,Citroen,C4 III,2020,EB2ADTS,Flat wiper blade pair,1,
+334834,KYB,Volkswagen,Golf VII,2012,CJSA,Gas front shock absorber,2,front
+334834,KYB,Volkswagen,Golf VII,2012,CRBC,Gas front shock absorber,2,front
+344459,KYB,Volkswagen,Golf VII,2012,CJSA,Gas rear shock absorber,2,rear
+344459,KYB,Audi,A3 8V,2012,CJSA,MQB rear damper,2,rear
+D7184,Monroe,Peugeot,308 II,2013,EB2DTS,OE front strut,2,front
+D7184,Monroe,Peugeot,308 II,2013,DV5RC,OE front strut,2,front
+G2245,Monroe,Peugeot,3008 II,2016,EB2ADTS,Rear damper,2,rear
+24-264662,Bilstein,BMW,3 Series F30,2011,B48B20,B4 gas front damper,2,front
+24-264662,Bilstein,BMW,3 Series F30,2011,B47D20,B4 gas front damper,2,front
+19-264681,Bilstein,BMW,3 Series F30,2011,B48B20,B4 gas rear damper,2,rear
+JTC1404,TRW,Volkswagen,Golf VII,2012,CJSA,Front lower control arm left,1,front-left
+JTC1405,TRW,Volkswagen,Golf VII,2012,CJSA,Front lower control arm right,1,front-right
+JBJ775,TRW,Volkswagen,Golf VII,2012,CJSA,Front ball joint,2,front
+JAR1050,TRW,Volkswagen,Golf VII,2012,CJSA,Outer tie rod end,2,front
+GDB2064,TRW,Volkswagen,Passat B8,2014,CZEA,Front brake pads,1,front
+GDB2064,TRW,Volkswagen,Tiguan II,2016,CZDA,Front brake pads,1,front
+DF6189S,TRW,BMW,5 Series G30,2016,B58B30,340mm vented front disc,2,front
+624335900,LuK,Volkswagen,Golf VII,2012,CRBC,TDI clutch kit,1,
+624335900,LuK,Volkswagen,Passat B8,2014,DCXA,TDI clutch kit,1,
+415066710,LuK,Volkswagen,Golf VII,2012,CRBC,Dual mass flywheel,1,
+K015603XS,Gates,Renault,Megane IV,2015,R9MA,Timing belt + water pump kit,1,
+K015603XS,Gates,Renault,Kadjar,2015,H5Ht,Timing belt + water pump,1,
+K015603XS,Gates,Citroen,C5 Aircross,2018,DV5RD,Timing belt + water pump,1,
+900376,Continental,Volkswagen,Golf VII,2012,CRBC,Timing belt kit TDI,1,
+900376,Continental,Volkswagen,Passat B8,2014,DCXA,TDI timing belt kit,1,
+900376,Continental,Audi,A4 B9,2015,DETA,EA288 timing belt kit,1,
+VKBA6556,SKF,Volkswagen,Golf VII,2012,CJSA,Front hub bearing,2,front
+VKBA6556,SKF,Audi,A3 8V,2012,CJSA,Front wheel bearing MQB,2,front
+VKBA3660,SKF,Volkswagen,Golf VII,2012,CJSA,Rear wheel bearing,2,rear
+7977,NGK,Volkswagen,Golf VII,2012,CJSA,Iridium spark plug,4,
+7977,NGK,Seat,Leon III,2012,CJSA,EA211 spark plug,4,
+7977,NGK,Skoda,Octavia III,2012,CJSA,Spark plug,4,
+6458,NGK,BMW,3 Series F30,2011,B48B20,Double platinum plug,4,
+6458,NGK,BMW,5 Series G30,2016,B58B30,Platinum spark plug,6,
+FDB4045,Ferodo,Renault,Megane IV,2015,M5Mb,Front brake pads,1,front
+FDB4045,Ferodo,Renault,Clio V,2019,H5Ht,Front brake pads,1,front
+FDB4045,Ferodo,Peugeot,308 II,2013,EB2DTS,Front brake pads,1,front
+FDB4396,Ferodo,Renault,Megane IV,2015,M5Mb,Rear brake pads,1,rear
+FDB4396,Ferodo,Peugeot,308 II,2013,EB2DTS,Rear pads,1,rear
+2360301,Textar,Mercedes-Benz,C-Class W205,2014,M264,Front brake pad set,1,front
+2360301,Textar,Mercedes-Benz,E-Class W213,2016,M264,Front brake pads,1,front
+2360301,Textar,Mercedes-Benz,GLC X253,2015,M274,Front brake pads,1,front
+2500601,Textar,Mercedes-Benz,C-Class W205,2014,M264,Rear brake pads,1,rear
+2500601,Textar,Mercedes-Benz,E-Class W213,2016,M264,Rear brake pads,1,rear
+509329,NRF,Volkswagen,Golf VII,2012,CJSA,OE replacement radiator,1,
+509329,NRF,Volkswagen,Golf VII,2012,CRBC,Engine radiator,1,
+86055,Nissens,BMW,3 Series F30,2011,B48B20,Aluminium radiator,1,
+86055,Nissens,BMW,3 Series F30,2011,B47D20,Engine radiator,1,
+247900,Hella,BMW,3 Series F30,2011,B48B20,Bi-Xenon headlight right,1,front-right
+539.00,Elring,Volkswagen,Golf VII,2012,CJSA,MLS head gasket set,1,
+539.00,Elring,Audi,A3 8V,2012,CJSA,EA211 head gasket set,1,
+81-33907-00,Victor Reinz,BMW,3 Series F30,2011,B48B20,Cylinder head gasket,1,
+81-33907-00,Victor Reinz,BMW,X3 G01,2017,B48B20,Head gasket B48,1,
+HD103670310,Meyle,Volkswagen,Golf VII,2012,CJSA,HD front control arm,1,front-left
+HD116050006,Meyle,BMW,3 Series F30,2011,B48B20,HD outer tie rod,2,front
+64118,Osram,Volkswagen,Golf VII,2012,CJSA,H7 headlight bulbs,2,front
+64118,Osram,BMW,3 Series F30,2011,B48B20,H7 bulb pair,2,front
+12972XV,Philips,Volkswagen,Golf VII,2012,CJSA,H7 headlight bulbs,2,front
+12972XV,Philips,Renault,Megane IV,2015,M5Mb,H7 headlamp bulbs,2,front
+MCA7798,Magneti Marelli,Fiat,500X,2014,55282328,Catalytic converter,1,
+MCA7798,Magneti Marelli,Fiat,Tipo,2015,55263624,Cat converter,1,
+03-0941-GZ,Zimmermann,BMW,3 Series F30,2011,B48B20,Sport front disc 340mm,2,front
+03-0942-GZ,Zimmermann,BMW,3 Series F30,2011,B48B20,Sport rear disc 310mm,2,rear
+DP2201/2,EBC Brakes,Volkswagen,Golf VII,2012,CJSA,Greenstuff front pads,1,front
+DP2201/2,EBC Brakes,Audi,A3 8V,2012,CJSA,Greenstuff front pads MQB,1,front
+171356,Sachs,Ford,Focus IV,2018,M8DA,Front strut,2,front
+315423,Sachs,Ford,Focus IV,2018,M8DA,Rear damper,2,rear
+95517,Delphi,Opel,Astra K,2015,B14XFT,Crank position sensor,1,
+95517,Delphi,Opel,Grandland X,2017,B12XHT,Crankshaft sensor,1,
+AP809,Champion,Peugeot,208 II,2019,EB2ADTS,Iridium spark plug,4,
+AP809,Champion,Citroen,C3 III,2016,EB2ADTS,Spark plug EB2,4,
+245215,Valeo,Renault,Megane IV,2015,M5Mb,Engine radiator,1,
+245215,Valeo,Renault,Captur II,2019,H5Ht,Radiator,1,

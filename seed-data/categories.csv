@@ -1,0 +1,54 @@
+name,slug,parent_slug,description,level,sort_order
+Braking System,braking-system,,Components for vehicle braking,0,1
+Engine,engine,,Engine components and accessories,0,2
+Filters,filters,,Filtration systems for air oil and fuel,0,3
+Electrical,electrical,,Electrical and electronic components,0,4
+Suspension,suspension,,Suspension and steering components,0,5
+Transmission,transmission,,Clutch and transmission parts,0,6
+Cooling System,cooling-system,,Engine and cabin cooling components,0,7
+Lighting,lighting,,Vehicle lighting components,0,8
+Exhaust,exhaust,,Exhaust system components,0,9
+Body Parts,body-parts,,Exterior and interior body components,0,10
+Brake Pads,brake-pads,braking-system,Friction material for disc brakes,1,1
+Brake Discs,brake-discs,braking-system,Rotating discs for disc brake systems,1,2
+Brake Calipers,brake-calipers,braking-system,Hydraulic calipers for disc brakes,1,3
+Brake Fluid,brake-fluid,braking-system,Hydraulic fluid for brake systems,1,4
+Brake Lines,brake-lines,braking-system,Hydraulic lines and hoses,1,5
+Timing Belts,timing-belts,engine,Engine timing drive belts,1,1
+Timing Chains,timing-chains,engine,Engine timing drive chains,1,2
+Spark Plugs,spark-plugs,engine,Ignition spark plugs for petrol engines,1,3
+Glow Plugs,glow-plugs,engine,Pre-heat plugs for diesel engines,1,4
+Gaskets,gaskets,engine,Engine sealing gaskets and sets,1,5
+Water Pumps,water-pumps,engine,Coolant circulation pumps,1,6
+Turbochargers,turbochargers,engine,Forced induction turbo units,1,7
+Oil Filters,oil-filters,filters,Engine oil filtration,1,1
+Air Filters,air-filters,filters,Engine air intake filtration,1,2
+Fuel Filters,fuel-filters,filters,Fuel system filtration,1,3
+Cabin Filters,cabin-filters,filters,Interior air filtration pollen filters,1,4
+Alternators,alternators,electrical,Engine-driven generators,1,1
+Starters,starters,electrical,Engine starter motors,1,2
+Batteries,batteries,electrical,Vehicle batteries,1,3
+Ignition Coils,ignition-coils,electrical,High voltage ignition coils,1,4
+Sensors,sensors,electrical,Electronic sensors and senders,1,5
+Shock Absorbers,shock-absorbers,suspension,Dampers for suspension systems,1,1
+Springs,springs,suspension,Coil and leaf springs,1,2
+Control Arms,control-arms,suspension,Wishbones and control arms,1,3
+Ball Joints,ball-joints,suspension,Spherical joints for steering and suspension,1,4
+Tie Rod Ends,tie-rod-ends,suspension,Steering linkage joints,1,5
+Wheel Bearings,wheel-bearings,suspension,Hub bearings and bearing kits,1,6
+Clutch Kits,clutch-kits,transmission,Complete clutch replacement sets,1,1
+Flywheels,flywheels,transmission,Dual mass and solid flywheels,1,2
+CV Joints,cv-joints,transmission,Constant velocity joints and boots,1,3
+Radiators,radiators,cooling-system,Engine coolant radiators,1,1
+Thermostats,thermostats,cooling-system,Coolant temperature regulators,1,2
+Cooling Fans,cooling-fans,cooling-system,Electric and viscous cooling fans,1,3
+Heater Cores,heater-cores,cooling-system,Cabin heating heat exchangers,1,4
+Headlights,headlights,lighting,Front headlamp assemblies,1,1
+Tail Lights,tail-lights,lighting,Rear lamp assemblies,1,2
+Bulbs,bulbs,lighting,Replacement light bulbs,1,3
+Catalytic Converters,catalytic-converters,exhaust,Emission control catalysts,1,1
+Exhaust Pipes,exhaust-pipes,exhaust,Exhaust tubing and sections,1,2
+Mufflers,mufflers,exhaust,Sound dampening silencers,1,3
+Lambda Sensors,lambda-sensors,exhaust,Oxygen sensors for exhaust monitoring,1,4
+Mirrors,mirrors,body-parts,Side and rear view mirrors,1,1
+Wipers,wipers,body-parts,Windscreen wiper blades and arms,1,2
