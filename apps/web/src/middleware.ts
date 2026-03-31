@@ -6,9 +6,14 @@ import { NextRequest, NextResponse } from "next/server";
  * the browser makes relative requests, and this middleware forwards them.
  */
 export function middleware(request: NextRequest) {
-  const apiUrl = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
+  let apiUrl = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
   if (!apiUrl) {
     return NextResponse.next();
+  }
+
+  // Ensure the URL has a protocol
+  if (!apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
+    apiUrl = `https://${apiUrl}`;
   }
 
   const target = new URL(

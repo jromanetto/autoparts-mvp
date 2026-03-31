@@ -1,9 +1,14 @@
+function ensureProtocol(url: string): string {
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+}
+
 function getApiBase(): string {
   // Explicit public URL (baked at build time)
-  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  if (process.env.NEXT_PUBLIC_API_URL) return ensureProtocol(process.env.NEXT_PUBLIC_API_URL);
   // Server-side: use internal URL for direct backend calls
   if (typeof window === "undefined" && process.env.INTERNAL_API_URL) {
-    return process.env.INTERNAL_API_URL;
+    return ensureProtocol(process.env.INTERNAL_API_URL);
   }
   // Development default
   if (typeof window === "undefined") return "http://localhost:3000";

@@ -38,14 +38,23 @@ services:
     name: autoparts-web
     plan: free
     runtime: node
-    buildCommand: corepack enable && corepack prepare pnpm@9.15.4 --activate && pnpm install --frozen-lockfile && pnpm turbo run build --filter=@autoparts/web
-    startCommand: cd apps/web && npx --yes next start --port 10000 -H 0.0.0.0
+    buildCommand: >-
+      corepack enable && corepack prepare pnpm@9.15.4 --activate &&
+      pnpm install --frozen-lockfile &&
+      pnpm turbo run build --filter=@autoparts/web... &&
+      cp -r apps/web/public apps/web/.next/standalone/apps/web/public &&
+      cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
+    startCommand: node apps/web/.next/standalone/apps/web/server.js
     envVars:
       - key: INTERNAL_API_URL
         fromService:
           type: web
           name: autoparts-api
           property: host
+      - key: PORT
+        value: "10000"
+      - key: HOSTNAME
+        value: "0.0.0.0"
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION

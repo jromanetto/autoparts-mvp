@@ -37,7 +37,7 @@ export function normalizeOemNumber(oem: string): string {
   return oem
     .trim()
     .toUpperCase()
-    .replace(/[\s\-_.\/]+/g, "");
+    .replace(/[\s\-_./]+/g, "");
 }
 
 /** Known manufacturer name aliases → canonical names */
