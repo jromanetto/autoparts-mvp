@@ -1,6 +1,12 @@
 /**
  * Maps raw crawled product data to the ingestion pipeline CSV row types.
  * Handles deduplication, slug generation, and relationship resolution.
+ *
+ * Cross-source deduplication:
+ * - OEM numbers normalized (strip spaces/dashes, uppercase)
+ * - Manufacturer names resolved via alias table
+ * - Vehicle make names canonicalized
+ * - Cross-references deduplicated by (part_oem, cross_ref_oem) pair
  */
 
 import type {
@@ -24,6 +30,110 @@ function slugify(text: string): string {
 }
 
 /**
+ * Normalize an OEM number for deduplication:
+ * strip whitespace, remove common separators, uppercase.
+ */
+export function normalizeOemNumber(oem: string): string {
+  return oem
+    .trim()
+    .toUpperCase()
+    .replace(/[\s\-_.\/]+/g, "");
+}
+
+/** Known manufacturer name aliases → canonical names */
+const MANUFACTURER_ALIASES: Record<string, string> = {
+  "vw": "Volkswagen",
+  "vag": "Volkswagen",
+  "mb": "Mercedes-Benz",
+  "mercedes benz": "Mercedes-Benz",
+  "mercedes": "Mercedes-Benz",
+  "merc": "Mercedes-Benz",
+  "benz": "Mercedes-Benz",
+  "bmw ag": "BMW",
+  "gm": "General Motors",
+  "general motors": "General Motors",
+  "psa": "PSA Group",
+  "stellantis": "Stellantis",
+  "fca": "FCA",
+  "mann filter": "Mann-Filter",
+  "mann+hummel": "Mann-Filter",
+  "sachs": "ZF Sachs",
+  "ate": "ATE",
+  "trw": "TRW",
+  "lemforder": "Lemförder",
+  "lemförder": "Lemförder",
+  "hella": "HELLA",
+  "febi": "Febi Bilstein",
+  "febi bilstein": "Febi Bilstein",
+  "meyle": "MEYLE",
+  "ngk": "NGK",
+  "skf": "SKF",
+  "dayco": "Dayco",
+  "gates": "Gates",
+  "contitech": "ContiTech",
+  "continental": "Continental",
+  "luk": "LuK",
+  "ina": "INA",
+  "fag": "FAG",
+  "schaeffler": "Schaeffler",
+  "mahle": "MAHLE",
+  "knecht": "MAHLE",
+  "behr": "MAHLE Behr",
+  "pierburg": "Pierburg",
+  "elring": "Elring",
+  "victor reinz": "Victor Reinz",
+  "reinz": "Victor Reinz",
+  "delphi": "Delphi",
+  "brembo": "Brembo",
+  "ferodo": "Ferodo",
+  "textar": "Textar",
+  "pagid": "Pagid",
+  "zimmermann": "Zimmermann",
+  "sachs boge": "Sachs",
+  "bilstein": "Bilstein",
+  "koni": "KONI",
+  "monroe": "Monroe",
+  "kayaba": "KYB",
+  "kyb": "KYB",
+  "champion": "Champion",
+};
+
+/** Known vehicle make aliases → canonical names */
+const MAKE_ALIASES: Record<string, string> = {
+  "vw": "Volkswagen",
+  "volkswagen ag": "Volkswagen",
+  "mb": "Mercedes-Benz",
+  "mercedes benz": "Mercedes-Benz",
+  "mercedes": "Mercedes-Benz",
+  "merc": "Mercedes-Benz",
+  "benz": "Mercedes-Benz",
+  "bmw ag": "BMW",
+  "gm": "General Motors",
+  "chevrolet": "Chevrolet",
+  "chevy": "Chevrolet",
+  "alfa": "Alfa Romeo",
+  "alfa romeo": "Alfa Romeo",
+  "ds": "DS Automobiles",
+  "mini": "MINI",
+  "mini cooper": "MINI",
+  "land rover": "Land Rover",
+  "landrover": "Land Rover",
+  "range rover": "Land Rover",
+};
+
+/** Resolve manufacturer name using alias table */
+export function resolveManufacturer(name: string): string {
+  const key = name.toLowerCase().trim();
+  return MANUFACTURER_ALIASES[key] ?? name.trim();
+}
+
+/** Resolve vehicle make name using alias table */
+export function resolveVehicleMake(name: string): string {
+  const key = name.toLowerCase().trim();
+  return MAKE_ALIASES[key] ?? name.trim();
+}
+
+/**
  * Maps an array of raw products (from a single site) into
  * the six entity types needed by the ingestion pipeline.
  */
@@ -38,15 +148,23 @@ export function mapProductsToEntities(
   const compatibilityList: CompatibilityRow[] = [];
   const crossRefList: CrossReferenceRow[] = [];
 
+  // Track cross-reference and compatibility uniqueness
+  const crossRefKeys = new Set<string>();
+  const compatibilityKeys = new Set<string>();
+
   for (const product of products) {
     // Skip products without an OEM number — can't deduplicate without it
     if (!product.oemNumber || !product.brand) continue;
 
+    // Normalize OEM number and resolve manufacturer name
+    const normalizedOem = normalizeOemNumber(product.oemNumber);
+    const resolvedBrand = resolveManufacturer(product.brand);
+
     // --- Manufacturer ---
-    const brandKey = product.brand.toLowerCase().trim();
+    const brandKey = resolvedBrand.toLowerCase();
     if (!manufacturerMap.has(brandKey)) {
       manufacturerMap.set(brandKey, {
-        name: product.brand.trim(),
+        name: resolvedBrand,
       });
     }
 
@@ -69,8 +187,8 @@ export function mapProductsToEntities(
       }
     }
 
-    // --- Part ---
-    const partKey = `${product.oemNumber}:${brandKey}`;
+    // --- Part (deduplicated by normalized OEM + resolved brand) ---
+    const partKey = `${normalizedOem}:${brandKey}`;
     if (!partMap.has(partKey)) {
       const categorySlug =
         product.categoryPath && product.categoryPath.length > 0
@@ -79,7 +197,7 @@ export function mapProductsToEntities(
 
       partMap.set(partKey, {
         oem_number: product.oemNumber,
-        manufacturer_name: product.brand.trim(),
+        manufacturer_name: resolvedBrand,
         category_slug: categorySlug,
         name: product.name,
         description: product.description,
@@ -91,9 +209,12 @@ export function mapProductsToEntities(
     // --- Vehicles & Compatibility ---
     if (product.compatibleVehicles) {
       for (const vc of product.compatibleVehicles) {
+        // Resolve vehicle make name
+        const resolvedMake = resolveVehicleMake(vc.make);
+
         // Vehicle record
         const vKey = [
-          vc.make,
+          resolvedMake,
           vc.model,
           vc.yearStart ?? "",
           vc.engineCode ?? "",
@@ -101,7 +222,7 @@ export function mapProductsToEntities(
 
         if (!vehicleMap.has(vKey)) {
           vehicleMap.set(vKey, {
-            make_name: vc.make,
+            make_name: resolvedMake,
             model_name: vc.model,
             year_start: String(vc.yearStart ?? 2000),
             year_end: vc.yearEnd ? String(vc.yearEnd) : undefined,
@@ -115,32 +236,42 @@ export function mapProductsToEntities(
           });
         }
 
-        // Compatibility mapping
-        compatibilityList.push({
-          part_oem_number: product.oemNumber,
-          part_manufacturer: product.brand.trim(),
-          vehicle_make: vc.make,
-          vehicle_model: vc.model,
-          vehicle_year_start: String(vc.yearStart ?? 2000),
-          engine_code: vc.engineCode,
-          fitment_notes: vc.fitmentNotes,
-          quantity_needed: vc.quantity ? String(vc.quantity) : undefined,
-          position: vc.position,
-        });
+        // Compatibility mapping (deduplicated)
+        const compatKey = `${normalizedOem}:${brandKey}:${resolvedMake.toLowerCase()}:${vc.model.toLowerCase()}:${vc.yearStart ?? ""}:${vc.engineCode ?? ""}:${vc.position ?? ""}`;
+        if (!compatibilityKeys.has(compatKey)) {
+          compatibilityKeys.add(compatKey);
+          compatibilityList.push({
+            part_oem_number: product.oemNumber,
+            part_manufacturer: resolvedBrand,
+            vehicle_make: resolvedMake,
+            vehicle_model: vc.model,
+            vehicle_year_start: String(vc.yearStart ?? 2000),
+            engine_code: vc.engineCode,
+            fitment_notes: vc.fitmentNotes,
+            quantity_needed: vc.quantity ? String(vc.quantity) : undefined,
+            position: vc.position,
+          });
+        }
       }
     }
 
-    // --- Cross References ---
+    // --- Cross References (deduplicated by normalized OEM pair) ---
     if (product.crossReferences) {
       for (const cr of product.crossReferences) {
-        crossRefList.push({
-          part_oem_number: product.oemNumber,
-          part_manufacturer: product.brand.trim(),
-          cross_ref_oem_number: cr.oemNumber,
-          cross_ref_manufacturer: cr.manufacturer,
-          cross_ref_type: cr.type ?? "equivalent",
-          notes: cr.notes,
-        });
+        const normalizedCrossRef = normalizeOemNumber(cr.oemNumber);
+        const crKey = `${normalizedOem}:${normalizedCrossRef}`;
+
+        if (!crossRefKeys.has(crKey)) {
+          crossRefKeys.add(crKey);
+          crossRefList.push({
+            part_oem_number: product.oemNumber,
+            part_manufacturer: resolvedBrand,
+            cross_ref_oem_number: cr.oemNumber,
+            cross_ref_manufacturer: cr.manufacturer ? resolveManufacturer(cr.manufacturer) : undefined,
+            cross_ref_type: cr.type ?? "equivalent",
+            notes: cr.notes,
+          });
+        }
       }
     }
   }
