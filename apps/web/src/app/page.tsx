@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Car, Wrench, LayoutGrid, Search, ArrowRight, Database, Globe, Zap } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { Car, Wrench, LayoutGrid, Search, ArrowRight, Database, Globe, Zap, Hash } from "lucide-react";
 import { SearchBar } from "@/components/search-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -41,10 +42,44 @@ const features = [
 ];
 
 const quickLinks = [
-  { href: "/parts", label: "Browse Parts", icon: Wrench, description: "Explore the full parts catalog" },
-  { href: "/vehicles", label: "Vehicle Lookup", icon: Car, description: "Find parts by vehicle" },
-  { href: "/categories", label: "Categories", icon: LayoutGrid, description: "Browse by category" },
+  { href: "/search", label: "By Reference", icon: Hash, description: "Search by OEM number or part name" },
+  { href: "/vehicles", label: "By Vehicle", icon: Car, description: "Find parts for your car" },
+  { href: "/categories", label: "By Category", icon: LayoutGrid, description: "Browse by part type" },
 ];
+
+const stats = [
+  { value: 10500, label: "Parts", suffix: "+" },
+  { value: 72, label: "Manufacturers", suffix: "+" },
+  { value: 843, label: "Vehicle configs", suffix: "" },
+];
+
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const increment = value / 40;
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 30);
+    return () => clearInterval(timer);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref} className="text-2xl font-bold font-mono text-primary">
+      {count.toLocaleString()}{suffix}
+    </span>
+  );
+}
 
 const container = {
   hidden: { opacity: 0 },
@@ -100,6 +135,20 @@ export default function HomePage() {
               </Link>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Bar */}
+      <section className="border-t bg-muted/50 py-6">
+        <div className="container">
+          <div className="flex justify-center gap-12 md:gap-20">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
