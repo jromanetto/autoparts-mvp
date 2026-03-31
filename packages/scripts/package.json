@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "import": "tsx src/import-cli.ts",
+    "seed": "tsx src/seed.ts",
     "crawl": "tsx src/crawl-cli.ts",
     "clean": "rm -rf dist"
   },

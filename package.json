@@ -17,6 +17,7 @@
     "test:integration": "turbo run test:integration",
     "db:generate": "turbo run db:generate --filter=@autoparts/db",
     "db:migrate": "turbo run db:migrate --filter=@autoparts/db",
+    "db:seed": "pnpm --filter @autoparts/scripts run seed",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {

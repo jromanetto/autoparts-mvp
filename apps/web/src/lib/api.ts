@@ -1,4 +1,17 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+function getApiBase(): string {
+  // Explicit public URL (baked at build time)
+  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  // Server-side: use internal URL for direct backend calls
+  if (typeof window === "undefined" && process.env.INTERNAL_API_URL) {
+    return process.env.INTERNAL_API_URL;
+  }
+  // Development default
+  if (typeof window === "undefined") return "http://localhost:3000";
+  // Client-side without explicit URL: use relative paths (proxied by middleware)
+  return "";
+}
+
+const API_BASE = getApiBase();
 const API_KEY = process.env.API_KEY || process.env.NEXT_PUBLIC_API_KEY || "";
 
 interface FetchOptions {
@@ -7,14 +20,18 @@ interface FetchOptions {
 }
 
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
-  const url = new URL(`/api/v1${path}`, API_BASE);
+  const base = API_BASE || "http://localhost";
+  const url = new URL(`/api/v1${path}`, base);
   if (options.params) {
     for (const [key, value] of Object.entries(options.params)) {
       if (value !== undefined) url.searchParams.set(key, String(value));
     }
   }
 
-  const res = await fetch(url.toString(), {
+  // Use relative path for client-side proxy mode
+  const fetchUrl = API_BASE ? url.toString() : url.pathname + url.search;
+
+  const res = await fetch(fetchUrl, {
     headers: {
       "X-API-Key": API_KEY,
       "Content-Type": "application/json",
