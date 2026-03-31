@@ -25,6 +25,9 @@ export default [
         clearInterval: "readonly",
         URL: "readonly",
         crypto: "readonly",
+        fetch: "readonly",
+        AbortController: "readonly",
+        URLSearchParams: "readonly",
       },
     },
     plugins: {

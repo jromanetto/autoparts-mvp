@@ -10,11 +10,13 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "import": "tsx src/import-cli.ts",
+    "crawl": "tsx src/crawl-cli.ts",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "@autoparts/db": "workspace:*",
     "@autoparts/shared": "workspace:*",
+    "cheerio": "^1.2.0",
     "csv-parse": "^6.2.1",
     "drizzle-orm": "^0.38.3"
   },
