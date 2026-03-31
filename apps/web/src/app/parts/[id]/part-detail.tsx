@@ -3,11 +3,32 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ArrowLeft, Package, Car, Hash, Tag, Info } from "lucide-react";
+import { ArrowLeft, Package, Car, Hash, Tag, Info, Copy, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { demoParts, demoCrossRefs } from "@/lib/demo-data";
 import type { Part, CrossReference } from "@/lib/api";
 
@@ -26,6 +47,32 @@ interface CompatEntry {
   quantityNeeded?: number | null;
   position?: string | null;
   verified?: boolean;
+}
+
+function OemDisplay({ oemNumber }: { oemNumber: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(oemNumber);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex items-center justify-between bg-muted p-4 rounded-lg">
+      <span className="text-2xl font-mono font-semibold tracking-wider">{oemNumber}</span>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon" onClick={handleCopy} aria-label="Copy OEM number">
+              {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>{copied ? "Copied!" : "Copy OEM number"}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
+  );
 }
 
 export default function PartDetailPage() {
@@ -53,7 +100,6 @@ export default function PartDetailPage() {
         if (xrefRes?.ok) setCrossRefs(await xrefRes.json());
         if (compatRes?.ok) { const d = await compatRes.json(); setCompatibility(d.data || []); }
       } catch {
-        // Fallback to demo data
         const demoPart = demoParts.find((p) => p.id === id);
         if (demoPart) {
           setPart({
@@ -75,14 +121,14 @@ export default function PartDetailPage() {
   if (loading) {
     return (
       <div className="container py-8">
-        <Skeleton className="h-8 w-48 mb-6" />
+        <Skeleton shimmer className="h-8 w-48 mb-6" />
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
           <div className="space-y-6">
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-32 w-full" />
-            <Skeleton className="h-48 w-full" />
+            <Skeleton shimmer className="h-12 w-full" />
+            <Skeleton shimmer className="h-32 w-full" />
+            <Skeleton shimmer className="h-48 w-full" />
           </div>
-          <Skeleton className="h-64 w-full" />
+          <Skeleton shimmer className="h-64 w-full" />
         </div>
       </div>
     );
@@ -102,22 +148,35 @@ export default function PartDetailPage() {
 
   return (
     <div className="container py-8">
-      <Link href="/parts">
-        <Button variant="ghost" size="sm" className="mb-6 gap-2">
-          <ArrowLeft className="h-4 w-4" /> Back to catalog
-        </Button>
-      </Link>
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem><BreadcrumbLink href="/parts">Parts</BreadcrumbLink></BreadcrumbItem>
+          {part.category?.name && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem><BreadcrumbLink href={`/parts?categoryId=${part.categoryId}`}>{part.category.name}</BreadcrumbLink></BreadcrumbItem>
+            </>
+          )}
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>{part.oemNumber}</BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
         {/* Main content */}
         <div className="space-y-6">
           <div>
             <div className="flex items-center gap-3">
-              <Badge variant={part.status === "active" ? "default" : "secondary"}>
+              <Badge
+                variant={part.status === "active" ? "default" : "secondary"}
+                className={part.status === "active" ? "bg-green-600/10 text-green-700 border-green-600/20 dark:text-green-400" : ""}
+              >
                 {part.status}
               </Badge>
               {part.category?.name && (
-                <Badge variant="outline">{part.category.name}</Badge>
+                <Badge variant="outline" className="border-primary/20 text-primary">{part.category.name}</Badge>
               )}
             </div>
             <h1 className="mt-3 text-3xl font-bold">{part.name}</h1>
@@ -135,9 +194,7 @@ export default function PartDetailPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <code className="rounded bg-muted px-3 py-2 text-lg font-mono font-semibold">
-                {part.oemNumber}
-              </code>
+              <OemDisplay oemNumber={part.oemNumber} />
             </CardContent>
           </Card>
 
@@ -162,23 +219,26 @@ export default function PartDetailPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="divide-y">
-                  {crossRefs.map((ref) => (
-                    <div key={ref.id} className="flex items-center justify-between py-3">
-                      <div>
-                        <code className="rounded bg-muted px-2 py-1 font-mono text-sm font-medium">
-                          {ref.crossRefOemNumber}
-                        </code>
-                        {ref.crossRefManufacturer && (
-                          <span className="ml-2 text-sm text-muted-foreground">
-                            {ref.crossRefManufacturer}
-                          </span>
-                        )}
-                      </div>
-                      <Badge variant="outline">{ref.crossRefType}</Badge>
-                    </div>
-                  ))}
-                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Code</TableHead>
+                      <TableHead>Manufacturer</TableHead>
+                      <TableHead>Type</TableHead>
+                      <TableHead>Notes</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {crossRefs.map((ref) => (
+                      <TableRow key={ref.id}>
+                        <TableCell className="font-mono tracking-wider">{ref.crossRefOemNumber}</TableCell>
+                        <TableCell>{ref.crossRefManufacturer}</TableCell>
+                        <TableCell><Badge variant="outline">{ref.crossRefType}</Badge></TableCell>
+                        <TableCell className="text-muted-foreground text-sm">{ref.notes || "\u2014"}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           )}
@@ -244,7 +304,7 @@ export default function PartDetailPage() {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-sm text-muted-foreground">OEM Number</dt>
-                  <dd className="font-mono font-medium">{part.oemNumber}</dd>
+                  <dd className="font-mono font-medium tracking-wider">{part.oemNumber}</dd>
                 </div>
                 {part.manufacturer?.name && (
                   <div>
@@ -261,7 +321,10 @@ export default function PartDetailPage() {
                 <div>
                   <dt className="text-sm text-muted-foreground">Status</dt>
                   <dd>
-                    <Badge variant={part.status === "active" ? "default" : "secondary"}>
+                    <Badge
+                      variant={part.status === "active" ? "default" : "secondary"}
+                      className={part.status === "active" ? "bg-green-600/10 text-green-700 border-green-600/20 dark:text-green-400" : ""}
+                    >
                       {part.status}
                     </Badge>
                   </dd>

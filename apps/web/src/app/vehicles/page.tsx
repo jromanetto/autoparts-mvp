@@ -8,6 +8,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { demoMakes, demoModels, demoVehicles } from "@/lib/demo-data";
 import type { VehicleMake, VehicleModel, Vehicle } from "@/lib/api";
 
@@ -81,28 +88,43 @@ export default function VehiclesPage() {
 
   return (
     <div className="container py-8">
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+          <BreadcrumbSeparator />
+          {selectedMake ? (
+            <>
+              <BreadcrumbItem>
+                <button onClick={() => { setSelectedMake(null); setSelectedModel(null); setModels([]); setVehicles([]); }} className="transition-colors hover:text-foreground text-muted-foreground">
+                  Vehicles
+                </button>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              {selectedModel ? (
+                <>
+                  <BreadcrumbItem>
+                    <button onClick={() => { setSelectedModel(null); setVehicles([]); }} className="transition-colors hover:text-foreground text-muted-foreground">
+                      {selectedMake.name}
+                    </button>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>{selectedModel.name}</BreadcrumbItem>
+                </>
+              ) : (
+                <BreadcrumbItem>{selectedMake.name}</BreadcrumbItem>
+              )}
+            </>
+          ) : (
+            <BreadcrumbItem>Vehicles</BreadcrumbItem>
+          )}
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Vehicle Lookup</h1>
         <p className="mt-2 text-muted-foreground">
           Select a make, model, and variant to find compatible parts.
         </p>
-      </div>
-
-      {/* Breadcrumb */}
-      <div className="mb-6 flex items-center gap-2 text-sm">
-        {(selectedMake || selectedModel) && (
-          <Button variant="ghost" size="sm" onClick={handleBack} className="gap-1">
-            <ArrowLeft className="h-4 w-4" /> Back
-          </Button>
-        )}
-        {breadcrumb.map((crumb, i) => (
-          <div key={i} className="flex items-center gap-2">
-            {i > 0 && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
-            <span className={crumb.active ? "font-semibold" : "text-muted-foreground"}>
-              {crumb.label}
-            </span>
-          </div>
-        ))}
       </div>
 
       <AnimatePresence mode="wait">

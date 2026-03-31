@@ -3,13 +3,22 @@
 import { Suspense, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import { Search, ChevronRight } from "lucide-react";
 import { SearchBar } from "@/components/search-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { demoParts } from "@/lib/demo-data";
+import { staggerContainer, staggerItem } from "@/lib/motion";
 import type { SearchResult } from "@/lib/api";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
@@ -101,6 +110,16 @@ function SearchPageContent() {
 
   return (
     <div className="container py-8">
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem><BreadcrumbLink href="/search">Search</BreadcrumbLink></BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>&ldquo;{q}&rdquo;</BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="mb-8 max-w-2xl">
         <SearchBar defaultValue={q} />
       </div>
@@ -108,7 +127,7 @@ function SearchPageContent() {
       {loading ? (
         <div className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-24 rounded-lg" />
+            <Skeleton key={i} shimmer className="h-24 rounded-lg" />
           ))}
         </div>
       ) : !results || results.data.length === 0 ? (
@@ -125,27 +144,28 @@ function SearchPageContent() {
             {results.pagination.total} result{results.pagination.total !== 1 ? "s" : ""} for &ldquo;{q}&rdquo;
           </p>
 
-          <div className="space-y-3">
+          <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-3">
             {results.data.map((part) => (
-              <Link key={part.id} href={`/parts/${part.id}`}>
-                <Card className="group cursor-pointer transition-all hover:shadow-md hover:border-primary/30">
-                  <CardContent className="p-5">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <code className="rounded bg-muted px-2 py-0.5 text-sm font-mono">
-                            {part.oemNumber}
-                          </code>
-                          <Badge
-                            variant={part.status === "active" ? "default" : "secondary"}
-                            className="text-xs"
-                          >
-                            {part.status}
-                          </Badge>
-                        </div>
-                        <h3 className="mt-2 font-semibold group-hover:text-primary">
-                          {part.name}
-                        </h3>
+              <motion.div key={part.id} variants={staggerItem}>
+                <Link href={`/parts/${part.id}`}>
+                  <Card className="group cursor-pointer transition-all hover:shadow-md hover:border-primary/30">
+                    <CardContent className="p-5">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <code className="rounded bg-muted px-2 py-0.5 text-sm font-mono tracking-wider">
+                              {part.oemNumber}
+                            </code>
+                            <Badge
+                              variant={part.status === "active" ? "default" : "secondary"}
+                              className={`text-xs ${part.status === "active" ? "bg-green-600/10 text-green-700 border-green-600/20 dark:text-green-400" : ""}`}
+                            >
+                              {part.status}
+                            </Badge>
+                          </div>
+                          <h3 className="mt-2 font-semibold group-hover:text-primary transition-colors">
+                            {part.name}
+                          </h3>
                         <div className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
                           {part.manufacturerName && <span>{part.manufacturerName}</span>}
                           {part.categoryName && (
@@ -164,10 +184,11 @@ function SearchPageContent() {
                       <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </CardContent>
-                </Card>
-              </Link>
+                  </Card>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {results.pagination.totalPages > 1 && (
             <div className="mt-8 flex items-center justify-center gap-2">

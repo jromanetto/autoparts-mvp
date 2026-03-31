@@ -5,6 +5,13 @@ import Link from "next/link";
 import { LayoutGrid, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { demoCategories } from "@/lib/demo-data";
 import type { Category } from "@/lib/api";
 
@@ -39,6 +46,14 @@ export default function CategoriesPage() {
 
   return (
     <div className="container py-8">
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>Categories</BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Parts Categories</h1>
         <p className="mt-2 text-muted-foreground">
