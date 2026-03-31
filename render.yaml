@@ -45,7 +45,7 @@ services:
         fromService:
           type: web
           name: autoparts-api
-          envVarKey: RENDER_EXTERNAL_URL
+          property: host
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION
