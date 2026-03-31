@@ -31,3 +31,4 @@ coverage/
 
 # Docker volumes
 postgres_data/
+apps/web/out/

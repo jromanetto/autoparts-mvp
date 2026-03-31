@@ -1,47 +1,92 @@
+"use client";
+
+import { Suspense, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Wrench, ChevronRight } from "lucide-react";
-import { getParts, getCategories, getManufacturers } from "@/lib/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { demoParts, demoCategories, demoManufacturers } from "@/lib/demo-data";
+import type { PartWithRelations, Category, Manufacturer } from "@/lib/api";
 
-export const metadata = {
-  title: "Parts Catalog — AutoParts",
-  description: "Browse automotive spare parts by manufacturer, category, and OEM number.",
-};
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "";
 
-export default async function PartsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string; categoryId?: string; manufacturerId?: string; search?: string }>;
-}) {
-  const params = await searchParams;
-  const page = Number(params.page) || 1;
+interface PaginatedResponse<T> {
+  data: T[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
+}
 
-  let partsData;
-  let categoriesData;
-  let manufacturersData;
+function getDemoParts(page: number, categoryId?: string, manufacturerId?: string): PaginatedResponse<PartWithRelations> {
+  let filtered = demoParts;
+  if (categoryId) filtered = filtered.filter((p) => p.categoryId === categoryId);
+  if (manufacturerId) filtered = filtered.filter((p) => p.manufacturerId === manufacturerId);
+  const limit = 20;
+  const start = (page - 1) * limit;
+  return {
+    data: filtered.slice(start, start + limit),
+    pagination: { page, limit, total: filtered.length, totalPages: Math.ceil(filtered.length / limit) || 1 },
+  };
+}
 
-  try {
-    [partsData, categoriesData, manufacturersData] = await Promise.all([
-      getParts({
-        page,
-        limit: 20,
-        categoryId: params.categoryId,
-        manufacturerId: params.manufacturerId,
-        search: params.search,
-      }),
-      getCategories(),
-      getManufacturers(),
-    ]);
-  } catch {
-    return <PartsError />;
-  }
+export default function PartsPage() {
+  return (
+    <Suspense fallback={<div className="container py-16 text-center"><Wrench className="mx-auto h-12 w-12 text-muted-foreground animate-pulse" /></div>}>
+      <PartsPageContent />
+    </Suspense>
+  );
+}
 
-  const parts = partsData.data;
-  const categories = categoriesData.data;
-  const manufacturers = manufacturersData.data;
-  const pagination = partsData.pagination;
+function PartsPageContent() {
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+  const categoryId = searchParams.get("categoryId") || undefined;
+  const manufacturerId = searchParams.get("manufacturerId") || undefined;
+
+  const [parts, setParts] = useState<PartWithRelations[]>([]);
+  const [categories, setCategories] = useState<Category[]>(demoCategories);
+  const [manufacturers, setManufacturers] = useState<Manufacturer[]>(demoManufacturers);
+  const [pagination, setPagination] = useState({ page: 1, limit: 20, total: 0, totalPages: 1 });
+  const [loading, setLoading] = useState(true);
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const base = API_BASE || "http://localhost:3000";
+      const partsUrl = new URL("/api/v1/parts", base);
+      partsUrl.searchParams.set("page", String(page));
+      partsUrl.searchParams.set("limit", "20");
+      if (categoryId) partsUrl.searchParams.set("categoryId", categoryId);
+      if (manufacturerId) partsUrl.searchParams.set("manufacturerId", manufacturerId);
+
+      const headers = { "X-API-Key": API_KEY };
+      const [partsRes, catsRes, mfrsRes] = await Promise.all([
+        fetch(partsUrl.toString(), { headers }),
+        fetch(new URL("/api/v1/categories?limit=100", base).toString(), { headers }),
+        fetch(new URL("/api/v1/manufacturers?limit=100", base).toString(), { headers }),
+      ]);
+      if (!partsRes.ok) throw new Error("API error");
+      const partsData = await partsRes.json();
+      const catsData = catsRes.ok ? await catsRes.json() : { data: demoCategories };
+      const mfrsData = mfrsRes.ok ? await mfrsRes.json() : { data: demoManufacturers };
+      setParts(partsData.data);
+      setPagination(partsData.pagination);
+      setCategories(catsData.data);
+      setManufacturers(mfrsData.data);
+    } catch {
+      const demo = getDemoParts(page, categoryId, manufacturerId);
+      setParts(demo.data);
+      setPagination(demo.pagination);
+      setCategories(demoCategories);
+      setManufacturers(demoManufacturers);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, categoryId, manufacturerId]);
+
+  useEffect(() => { loadData(); }, [loadData]);
 
   return (
     <div className="container py-8">
@@ -59,21 +104,13 @@ export default async function PartsPage({
             <h3 className="mb-3 font-semibold">Categories</h3>
             <div className="space-y-1">
               <Link href="/parts">
-                <Button
-                  variant={!params.categoryId ? "secondary" : "ghost"}
-                  size="sm"
-                  className="w-full justify-start"
-                >
+                <Button variant={!categoryId ? "secondary" : "ghost"} size="sm" className="w-full justify-start">
                   All Categories
                 </Button>
               </Link>
-              {categories.map((cat) => (
+              {categories.filter((c) => !c.parentId).map((cat) => (
                 <Link key={cat.id} href={`/parts?categoryId=${cat.id}`}>
-                  <Button
-                    variant={params.categoryId === cat.id ? "secondary" : "ghost"}
-                    size="sm"
-                    className="w-full justify-start"
-                  >
+                  <Button variant={categoryId === cat.id ? "secondary" : "ghost"} size="sm" className="w-full justify-start">
                     {cat.name}
                   </Button>
                 </Link>
@@ -85,21 +122,13 @@ export default async function PartsPage({
             <h3 className="mb-3 font-semibold">Manufacturers</h3>
             <div className="space-y-1">
               <Link href="/parts">
-                <Button
-                  variant={!params.manufacturerId ? "secondary" : "ghost"}
-                  size="sm"
-                  className="w-full justify-start"
-                >
+                <Button variant={!manufacturerId ? "secondary" : "ghost"} size="sm" className="w-full justify-start">
                   All Manufacturers
                 </Button>
               </Link>
               {manufacturers.map((mfr) => (
                 <Link key={mfr.id} href={`/parts?manufacturerId=${mfr.id}`}>
-                  <Button
-                    variant={params.manufacturerId === mfr.id ? "secondary" : "ghost"}
-                    size="sm"
-                    className="w-full justify-start"
-                  >
+                  <Button variant={manufacturerId === mfr.id ? "secondary" : "ghost"} size="sm" className="w-full justify-start">
                     {mfr.name}
                   </Button>
                 </Link>
@@ -110,7 +139,13 @@ export default async function PartsPage({
 
         {/* Parts grid */}
         <div>
-          {parts.length === 0 ? (
+          {loading ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-36 rounded-lg" />
+              ))}
+            </div>
+          ) : parts.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed py-16">
               <Wrench className="h-12 w-12 text-muted-foreground" />
               <h3 className="mt-4 text-lg font-semibold">No parts found</h3>
@@ -142,9 +177,7 @@ export default async function PartsPage({
                           <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                         </div>
                         <div className="mt-3 flex items-center gap-2">
-                          <Badge
-                            variant={part.status === "active" ? "default" : "secondary"}
-                          >
+                          <Badge variant={part.status === "active" ? "default" : "secondary"}>
                             {part.status}
                           </Badge>
                           {part.categoryName && (
@@ -157,11 +190,10 @@ export default async function PartsPage({
                 ))}
               </div>
 
-              {/* Pagination */}
               {pagination.totalPages > 1 && (
                 <div className="mt-8 flex items-center justify-center gap-2">
                   {page > 1 && (
-                    <Link href={`/parts?page=${page - 1}${params.categoryId ? `&categoryId=${params.categoryId}` : ""}${params.manufacturerId ? `&manufacturerId=${params.manufacturerId}` : ""}`}>
+                    <Link href={`/parts?page=${page - 1}${categoryId ? `&categoryId=${categoryId}` : ""}${manufacturerId ? `&manufacturerId=${manufacturerId}` : ""}`}>
                       <Button variant="outline" size="sm">Previous</Button>
                     </Link>
                   )}
@@ -169,7 +201,7 @@ export default async function PartsPage({
                     Page {page} of {pagination.totalPages}
                   </span>
                   {page < pagination.totalPages && (
-                    <Link href={`/parts?page=${page + 1}${params.categoryId ? `&categoryId=${params.categoryId}` : ""}${params.manufacturerId ? `&manufacturerId=${params.manufacturerId}` : ""}`}>
+                    <Link href={`/parts?page=${page + 1}${categoryId ? `&categoryId=${categoryId}` : ""}${manufacturerId ? `&manufacturerId=${manufacturerId}` : ""}`}>
                       <Button variant="outline" size="sm">Next</Button>
                     </Link>
                   )}
@@ -178,20 +210,6 @@ export default async function PartsPage({
             </>
           )}
         </div>
-      </div>
-    </div>
-  );
-}
-
-function PartsError() {
-  return (
-    <div className="container py-16">
-      <div className="mx-auto max-w-md text-center">
-        <Wrench className="mx-auto h-12 w-12 text-muted-foreground" />
-        <h2 className="mt-4 text-xl font-semibold">Unable to load parts</h2>
-        <p className="mt-2 text-muted-foreground">
-          The API server may be offline. Make sure the backend is running on port 3000.
-        </p>
       </div>
     </div>
   );

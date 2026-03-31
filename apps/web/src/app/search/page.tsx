@@ -1,24 +1,86 @@
+"use client";
+
+import { Suspense, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Search, ChevronRight } from "lucide-react";
-import { searchParts } from "@/lib/api";
 import { SearchBar } from "@/components/search-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { demoParts } from "@/lib/demo-data";
+import type { SearchResult } from "@/lib/api";
 
-export const metadata = {
-  title: "Search — AutoParts",
-  description: "Search automotive parts by OEM number, name, or description.",
-};
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "";
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string; page?: string }>;
-}) {
-  const params = await searchParams;
-  const q = params.q || "";
-  const page = Number(params.page) || 1;
+interface PaginatedResult {
+  data: SearchResult[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
+}
+
+function searchDemo(q: string, page: number, limit: number): PaginatedResult {
+  const lower = q.toLowerCase();
+  const filtered = demoParts.filter(
+    (p) =>
+      p.name.toLowerCase().includes(lower) ||
+      p.oemNumber.toLowerCase().includes(lower) ||
+      (p.description && p.description.toLowerCase().includes(lower)) ||
+      (p.manufacturerName && p.manufacturerName.toLowerCase().includes(lower)) ||
+      (p.categoryName && p.categoryName.toLowerCase().includes(lower)),
+  );
+  const start = (page - 1) * limit;
+  return {
+    data: filtered.slice(start, start + limit).map((p) => ({
+      id: p.id,
+      oemNumber: p.oemNumber,
+      name: p.name,
+      description: p.description,
+      status: p.status,
+      manufacturerName: p.manufacturerName,
+      categoryName: p.categoryName,
+    })),
+    pagination: { page, limit, total: filtered.length, totalPages: Math.ceil(filtered.length / limit) || 1 },
+  };
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="container py-16 text-center"><Search className="mx-auto h-12 w-12 text-muted-foreground animate-pulse" /></div>}>
+      <SearchPageContent />
+    </Suspense>
+  );
+}
+
+function SearchPageContent() {
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q") || "";
+  const page = Number(searchParams.get("page")) || 1;
+  const [results, setResults] = useState<PaginatedResult | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const doSearch = useCallback(async () => {
+    if (!q) { setResults(null); return; }
+    setLoading(true);
+    try {
+      const base = API_BASE || "http://localhost:3000";
+      const url = new URL(`/api/v1/search`, base);
+      url.searchParams.set("q", q);
+      url.searchParams.set("type", "parts");
+      url.searchParams.set("page", String(page));
+      url.searchParams.set("limit", "20");
+      const res = await fetch(url.toString(), { headers: { "X-API-Key": API_KEY } });
+      if (!res.ok) throw new Error("API error");
+      setResults(await res.json());
+    } catch {
+      setResults(searchDemo(q, page, 20));
+    } finally {
+      setLoading(false);
+    }
+  }, [q, page]);
+
+  useEffect(() => { doSearch(); }, [doSearch]);
 
   if (!q) {
     return (
@@ -37,39 +99,19 @@ export default async function SearchPage({
     );
   }
 
-  let results;
-  try {
-    results = await searchParts(q, { page, limit: 20 });
-  } catch {
-    return (
-      <div className="container py-8">
-        <div className="mb-8 max-w-2xl">
-          <SearchBar defaultValue={q} />
-        </div>
-        <div className="text-center py-12">
-          <Search className="mx-auto h-12 w-12 text-muted-foreground" />
-          <h2 className="mt-4 text-xl font-semibold">Search unavailable</h2>
-          <p className="mt-2 text-muted-foreground">
-            The API server may be offline. Make sure the backend is running.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  const { data: parts, pagination } = results;
-
   return (
     <div className="container py-8">
       <div className="mb-8 max-w-2xl">
         <SearchBar defaultValue={q} />
       </div>
 
-      <p className="mb-6 text-sm text-muted-foreground">
-        {pagination.total} result{pagination.total !== 1 ? "s" : ""} for &ldquo;{q}&rdquo;
-      </p>
-
-      {parts.length === 0 ? (
+      {loading ? (
+        <div className="space-y-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-24 rounded-lg" />
+          ))}
+        </div>
+      ) : !results || results.data.length === 0 ? (
         <div className="text-center py-12">
           <Search className="mx-auto h-12 w-12 text-muted-foreground" />
           <h2 className="mt-4 text-xl font-semibold">No results found</h2>
@@ -79,8 +121,12 @@ export default async function SearchPage({
         </div>
       ) : (
         <>
+          <p className="mb-6 text-sm text-muted-foreground">
+            {results.pagination.total} result{results.pagination.total !== 1 ? "s" : ""} for &ldquo;{q}&rdquo;
+          </p>
+
           <div className="space-y-3">
-            {parts.map((part) => (
+            {results.data.map((part) => (
               <Link key={part.id} href={`/parts/${part.id}`}>
                 <Card className="group cursor-pointer transition-all hover:shadow-md hover:border-primary/30">
                   <CardContent className="p-5">
@@ -123,8 +169,7 @@ export default async function SearchPage({
             ))}
           </div>
 
-          {/* Pagination */}
-          {pagination.totalPages > 1 && (
+          {results.pagination.totalPages > 1 && (
             <div className="mt-8 flex items-center justify-center gap-2">
               {page > 1 && (
                 <Link href={`/search?q=${encodeURIComponent(q)}&page=${page - 1}`}>
@@ -132,9 +177,9 @@ export default async function SearchPage({
                 </Link>
               )}
               <span className="text-sm text-muted-foreground">
-                Page {page} of {pagination.totalPages}
+                Page {page} of {results.pagination.totalPages}
               </span>
-              {page < pagination.totalPages && (
+              {page < results.pagination.totalPages && (
                 <Link href={`/search?q=${encodeURIComponent(q)}&page=${page + 1}`}>
                   <Button variant="outline" size="sm">Next</Button>
                 </Link>

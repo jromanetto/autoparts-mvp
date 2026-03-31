@@ -8,13 +8,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { demoMakes, demoModels, demoVehicles } from "@/lib/demo-data";
 import type { VehicleMake, VehicleModel, Vehicle } from "@/lib/api";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "";
 
 async function fetchApi<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_BASE}/api/v1${path}`, {
+  const base = API_BASE || "http://localhost:3000";
+  const res = await fetch(`${base}/api/v1${path}`, {
     headers: { "X-API-Key": API_KEY },
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
@@ -28,13 +30,12 @@ export default function VehiclesPage() {
   const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
   const [selectedModel, setSelectedModel] = useState<VehicleModel | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
   // Load makes on mount
   useEffect(() => {
     fetchApi<{ data: VehicleMake[] }>("/vehicles/makes?limit=100")
       .then((res) => { setMakes(res.data); setLoading(false); })
-      .catch(() => { setError(true); setLoading(false); });
+      .catch(() => { setMakes(demoMakes); setLoading(false); });
   }, []);
 
   // Load models when make selected
@@ -43,7 +44,10 @@ export default function VehiclesPage() {
     setLoading(true);
     fetchApi<{ data: VehicleModel[] }>(`/vehicles/models?makeId=${selectedMake.id}&limit=100`)
       .then((res) => { setModels(res.data); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setModels(demoModels.filter((m) => m.makeId === selectedMake.id));
+        setLoading(false);
+      });
   }, [selectedMake]);
 
   // Load vehicles when model selected
@@ -52,7 +56,10 @@ export default function VehiclesPage() {
     setLoading(true);
     fetchApi<{ data: Vehicle[] }>(`/vehicles?modelId=${selectedModel.id}&limit=100`)
       .then((res) => { setVehicles(res.data); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setVehicles(demoVehicles.filter((v) => v.modelId === selectedModel.id));
+        setLoading(false);
+      });
   }, [selectedModel]);
 
   const handleBack = () => {
@@ -64,18 +71,6 @@ export default function VehiclesPage() {
       setModels([]);
     }
   };
-
-  if (error) {
-    return (
-      <div className="container py-16 text-center">
-        <Car className="mx-auto h-12 w-12 text-muted-foreground" />
-        <h2 className="mt-4 text-xl font-semibold">Unable to load vehicles</h2>
-        <p className="mt-2 text-muted-foreground">
-          Make sure the API server is running on port 3000.
-        </p>
-      </div>
-    );
-  }
 
   // Breadcrumb
   const breadcrumb = [
