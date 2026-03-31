@@ -146,8 +146,41 @@ export default function PartDetailPage() {
     );
   }
 
+  // Schema.org Product structured data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: part.name,
+    description: part.description || `${part.name} - ${part.oemNumber}`,
+    sku: part.oemNumber,
+    mpn: part.oemNumber,
+    brand: part.manufacturer?.name
+      ? { "@type": "Brand", name: part.manufacturer.name }
+      : undefined,
+    category: part.category?.name || undefined,
+    weight: part.weightGrams
+      ? {
+          "@type": "QuantitativeValue",
+          value: part.weightGrams,
+          unitCode: "GRM",
+        }
+      : undefined,
+    itemCondition: "https://schema.org/NewCondition",
+    offers: {
+      "@type": "Offer",
+      availability:
+        part.status === "active"
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+    },
+  };
+
   return (
     <div className="container py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
