@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Catégories de pièces auto",
   description:
     "Parcourez les pièces auto par catégorie : freinage, moteur, filtres, électricité, suspension, transmission, éclairage et plus.",
+  alternates: {
+    canonical: "/categories",
+  },
   openGraph: {
     title: "Catégories de pièces auto | AutoParts",
     description:

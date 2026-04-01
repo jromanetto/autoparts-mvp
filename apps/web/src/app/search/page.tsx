@@ -366,8 +366,24 @@ function SearchPageContent() {
     (m) => m.id === manufacturerParam
   )?.name;
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://autoparts.example.com";
+
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Recherche", item: `${siteUrl}/search` },
+      { "@type": "ListItem", position: 3, name: q },
+    ],
+  };
+
   return (
     <div className="container py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>

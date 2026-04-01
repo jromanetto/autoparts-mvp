@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Recherche par véhicule",
   description:
     "Trouvez les pièces compatibles avec votre véhicule. Sélectionnez marque, modèle et motorisation pour voir les pièces adaptées.",
+  alternates: {
+    canonical: "/vehicles",
+  },
   openGraph: {
     title: "Recherche par véhicule | AutoParts",
     description:

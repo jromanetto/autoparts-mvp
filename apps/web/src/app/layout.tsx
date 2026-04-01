@@ -92,6 +92,15 @@ export default function RootLayout({
               },
               inLanguage: "fr",
               numberOfItems: 10500,
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL || "https://autoparts.example.com"}/search?q={search_term_string}`,
+                },
+                "query-input": "required name=search_term_string",
+              },
+              sameAs: [],
             }),
           }}
         />

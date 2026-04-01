@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { demoParts, demoCategories } from "@/lib/demo-data";
+import { demoParts, demoCategories, demoManufacturers, demoMakes, demoModels } from "@/lib/demo-data";
 
 export const dynamic = "force-static";
 
@@ -57,5 +57,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
 
-  return [...staticPages, ...partPages, ...categoryPages];
+  const manufacturerPages: MetadataRoute.Sitemap = demoManufacturers.map((mfr) => ({
+    url: `${baseUrl}/parts?manufacturerId=${mfr.id}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  const vehicleMakePages: MetadataRoute.Sitemap = demoMakes.map((make) => ({
+    url: `${baseUrl}/vehicles?make=${make.id}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const vehicleModelPages: MetadataRoute.Sitemap = demoModels.map((model) => ({
+    url: `${baseUrl}/vehicles?make=${demoMakes.find((m) => m.id === model.makeId)?.id || ""}&model=${model.id}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  return [
+    ...staticPages,
+    ...partPages,
+    ...categoryPages,
+    ...manufacturerPages,
+    ...vehicleMakePages,
+    ...vehicleModelPages,
+  ];
 }

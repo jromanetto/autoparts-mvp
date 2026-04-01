@@ -146,6 +146,8 @@ export default function PartDetailPage() {
     );
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://autoparts.example.com";
+
   // Schema.org Product structured data
   const structuredData = {
     "@context": "https://schema.org",
@@ -154,6 +156,7 @@ export default function PartDetailPage() {
     description: part.description || `${part.name} - ${part.oemNumber}`,
     sku: part.oemNumber,
     mpn: part.oemNumber,
+    url: `${siteUrl}/parts/${id}`,
     brand: part.manufacturer?.name
       ? { "@type": "Brand", name: part.manufacturer.name }
       : undefined,
@@ -168,11 +171,37 @@ export default function PartDetailPage() {
     itemCondition: "https://schema.org/NewCondition",
     offers: {
       "@type": "Offer",
+      url: `${siteUrl}/parts/${id}`,
       availability:
         part.status === "active"
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
+      seller: {
+        "@type": "Organization",
+        name: "AutoParts",
+      },
     },
+  };
+
+  // Schema.org BreadcrumbList structured data
+  const breadcrumbItems = [
+    { name: "Accueil", url: siteUrl },
+    { name: "Pièces", url: `${siteUrl}/parts` },
+    ...(part.category?.name
+      ? [{ name: part.category.name, url: `${siteUrl}/parts?categoryId=${part.categoryId}` }]
+      : []),
+    { name: part.oemNumber, url: `${siteUrl}/parts/${id}` },
+  ];
+
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 
   return (
@@ -180,6 +209,10 @@ export default function PartDetailPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       <Breadcrumb className="mb-6">
         <BreadcrumbList>

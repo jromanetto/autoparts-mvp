@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Catalogue de pièces auto",
   description:
     "Parcourez notre catalogue de pièces détachées automobiles. Filtrez par catégorie et fabricant. Bosch, Brembo, Valeo, Mann-Filter et plus.",
+  alternates: {
+    canonical: "/parts",
+  },
   openGraph: {
     title: "Catalogue de pièces auto | AutoParts",
     description:

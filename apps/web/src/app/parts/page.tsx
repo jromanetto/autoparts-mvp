@@ -97,8 +97,32 @@ function PartsPageContent() {
 
   useEffect(() => { loadData(); }, [loadData]);
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://autoparts.example.com";
+  const selectedCategory = categories.find((c) => c.id === categoryId);
+
+  const breadcrumbItems = [
+    { name: "Accueil", url: siteUrl },
+    { name: "Catalogue pièces", url: `${siteUrl}/parts` },
+    ...(selectedCategory ? [{ name: selectedCategory.name, url: `${siteUrl}/parts?categoryId=${selectedCategory.id}` }] : []),
+  ];
+
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+
   return (
     <div className="container py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
